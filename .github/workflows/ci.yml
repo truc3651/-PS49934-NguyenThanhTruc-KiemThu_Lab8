@@ -1,0 +1,26 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: maven:3.9-eclipse-temurin-17-alpine
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Compile
+      run: mvn clean compile
+
+    - name: Test
+      run: mvn test
+
+    - name: Package and deploy
+      run: mvn package
